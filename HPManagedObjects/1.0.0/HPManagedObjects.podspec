@@ -30,14 +30,22 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'HPManagedObjects/Classes/**/*'
-  
   # s.resource_bundles = {
   #   'HPManagedObjects' => ['HPManagedObjects/Assets/*.png']
   # }
 
+  s.subspec 'Main' do |main|
+   main.source_files   = 'HPManagedObjects/Classes/{Main,HelpClasses}/**/*'
+   main.public_header_files = 'HPManagedObjects/Classes/{Main,HelpClasses}/**/*.h'
+  end
 
-  s.public_header_files = 'HPManagedObjects/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'FMDB'
+  s.subspec 'FMDB' do |fmdb|
+   fmdb.source_files   = 'HPManagedObjects/Classes/FMDBSupport/**/*'
+
+   fmdb.public_header_files = 'HPManagedObjects/Classes/FMDBSupport/**/*.h'
+   fmdb.dependency 'HPManagedObjects/Main'
+   fmdb.dependency 'FMDB'
+  end
+
+
 end
